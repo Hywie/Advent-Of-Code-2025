@@ -26,14 +26,29 @@ fn main() {
             current += count % 100;
         }
 
+        // result = result.wrapping_add((count / 100) as u32);
+
         // correct cycle round (not clever to work out below -99)
         if current > 99 {
             current = current - 100;
+            if current != 0 {
+                result += 1;
+                println!("Current is above 100,  adding result");
+            }
         } else if current < 0 {
             current = 100 - (current * -1);
+            if current != 0 {
+                result += 1;
+                println!("Current is below 0, adding result");
+            }
         }
 
-        result = if current == 0 { result + 1 } else { result };
+        result = if current == 0 {
+            println!("Current is on 0, adding result");
+            result + 1
+        } else {
+            result
+        };
 
         println!(
             "Direction: {}, Count: {}, Current: {}, Result:{}",
